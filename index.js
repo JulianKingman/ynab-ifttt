@@ -6,7 +6,6 @@ app.get('/', function(req, res) {
   res.send('Hello World');
 });
 
-
 var ynabChannel = new Ifttt({
   apiVersion: 'v1',
   authMode: 'oauth2',
@@ -17,4 +16,4 @@ var ynabChannel = new Ifttt({
 
 ynabChannel.addExpressRoutes(app);
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
