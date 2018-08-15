@@ -1,0 +1,53 @@
+Arguments: 
+  /usr/local/Cellar/node/10.2.1/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js add node-ifttt
+
+PATH: 
+  /Users/Julian/.rvm/gems/ruby-2.3.1/bin:/Users/Julian/.rvm/gems/ruby-2.3.1@global/bin:/Users/Julian/.rvm/rubies/ruby-2.3.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/MacGPG2/bin:/opt/X11/bin:/Users/Julian/.rvm/bin:/Users/Julian/.rvm/bin:/Users/Julian/Library/Android/sdk:/Users/Julian/Library/Android/sdk:/Users/Julian/Library/Android/sdk:/Users/Julian/Library/Android/sdk/platform-tools
+
+Yarn version: 
+  1.5.1
+
+Node version: 
+  10.2.1
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  {
+    "name": "ynab-ifttt",
+    "version": "0.0.0",
+    "description": "YNAB channel for IFTTT",
+    "main": "index.js",
+    "directories": {
+      "doc": "docs"
+    },
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+      "ynab",
+      "ifttt"
+    ],
+    "author": "Julian Kingman",
+    "license": "MIT"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: https://registry.yarnpkg.com/node-ifttt: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:65019:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:132430:22)
+      at Request.emit (events.js:182:13)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:133413:10)
+      at Request.emit (events.js:182:13)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:133333:12)
+      at Object.onceWrapper (events.js:273:13)
+      at IncomingMessage.emit (events.js:187:15)
+      at endReadableNT (_stream_readable.js:1090:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)

@@ -1,0 +1,21 @@
+{
+  "name": "ynab-ifttt",
+  "version": "0.0.0",
+  "description": "YNAB channel for IFTTT",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ynab",
+    "ifttt"
+  ],
+  "author": "Julian Kingman",
+  "license": "MIT",
+  "dependencies": {
+    "ifttt": "^0.1.2"
+  }
+}
