@@ -1,4 +1,4 @@
-import  Ifttt from 'ifttt';
+const Ifttt = require('ifttt');
 
 const ynabChannel = new Ifttt({
   apiVersion: 'v1',
