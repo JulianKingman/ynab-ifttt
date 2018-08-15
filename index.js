@@ -6,4 +6,5 @@ const ynabChannel = new Ifttt({
   // logger: console,
   // testAccessToken: '',
   channelKey: 'ynab_contest',
-})
+});
+
