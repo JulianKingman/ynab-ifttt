@@ -11,7 +11,8 @@ var ynabChannel = new Ifttt({
   authMode: 'oauth2',
   // logger: console,
   // testAccessToken: '',
-  channelKey: 'ynab_contest',
+  // channelKey: 'ynab_contest',
+  channelKey: 'NGDFodNmYwwm3perWJxTZLwpKWuNDcgML5Nxmw0_UWw-5C5i4vKvypzMc2ABMifR',
 });
 
 ynabChannel.addExpressRoutes(app);

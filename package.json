@@ -13,7 +13,7 @@
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "open": "heroku open",
-    "publish": "git push heroku master",
+    "publish": "git push && git push heroku master",
     "check": "heroku ps:scale web=1",
     "logs": "heroku logs --tail",
     "ssh": "heroku run bash"
