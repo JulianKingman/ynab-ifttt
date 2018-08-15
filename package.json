@@ -24,6 +24,7 @@
   "author": "Julian Kingman",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.16.3",
     "ifttt": "^0.1.2"
   }
 }

@@ -1,3 +1,10 @@
+var express = require('express');
+var app = express();
+
+app.get('/', function(req, res) {
+  res.send('Hello World');
+});
+
 const Ifttt = require('ifttt');
 
 const ynabChannel = new Ifttt({
@@ -8,3 +15,4 @@ const ynabChannel = new Ifttt({
   channelKey: 'ynab_contest',
 });
 
+app.listen(80);
