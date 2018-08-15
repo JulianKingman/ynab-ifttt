@@ -6,6 +6,10 @@ app.get('/', function(req, res) {
   res.send('Hello World');
 });
 
+app.get('/oauth2/token', function(req, res) {
+  res.send('Hello World');
+});
+
 var ynabChannel = new Ifttt({
   apiVersion: 'v1',
   authMode: 'oauth2',
