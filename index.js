@@ -1,13 +1,13 @@
 var express = require('express');
 var app = express();
+var Ifttt = require('ifttt');
 
 app.get('/', function(req, res) {
   res.send('Hello World');
 });
 
-const Ifttt = require('ifttt');
 
-const ynabChannel = new Ifttt({
+var ynabChannel = new Ifttt({
   apiVersion: 'v1',
   authMode: 'oauth2',
   // logger: console,
@@ -15,4 +15,6 @@ const ynabChannel = new Ifttt({
   channelKey: 'ynab_contest',
 });
 
-app.listen(80);
+ynabChannel.addExpressRoutes(app);
+
+app.listen(3000);
