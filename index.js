@@ -15,7 +15,7 @@ var ynabChannel = new Ifttt({
   apiVersion: 'v1',
   // authMode: 'oauth2',
   // logger: {log: function(){}, warn: function(){}, error: function(){}, info: function(){}},
-  // testAccessToken: '',
+  testAccessToken: 'asdf',
   // channelKey: 'ynab_contest',
   channelKey:
     'NGDFodNmYwwm3perWJxTZLwpKWuNDcgML5Nxmw0_UWw-5C5i4vKvypzMc2ABMifR',
