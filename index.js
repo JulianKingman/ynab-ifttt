@@ -14,13 +14,16 @@ var ynabChannel = new Ifttt({
   apiVersion: 'v1',
   authMode: 'oauth2',
   // logger: console,
-  testAccessToken: '1218ecb3fba21a88d1b5270afa12e825d23a37a3b81920d1bcaaad4341638db8',
+  // testAccessToken: '',
   // channelKey: 'ynab_contest',
-  channelKey: 'NGDFodNmYwwm3perWJxTZLwpKWuNDcgML5Nxmw0_UWw-5C5i4vKvypzMc2ABMifR',
+  channelKey:
+    'NGDFodNmYwwm3perWJxTZLwpKWuNDcgML5Nxmw0_UWw-5C5i4vKvypzMc2ABMifR',
 });
 
-var response = ynabChannel._handleResponse(err, data);
+ynabChannel.handlers.status = function(a, b, c) {
+  console.log(a, b, c);
+};
 
 ynabChannel.addExpressRoutes(app);
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 5000);
