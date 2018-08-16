@@ -13,15 +13,20 @@ app.post('/oauth2/token', function(req, res) {
 var ynabChannel = new Ifttt({
   apiVersion: 'v1',
   // authMode: 'oauth2',
-  // logger: console,
+  // logger: {log: function(){}, warn: function(){}, error: function(){}, info: function(){}},
   // testAccessToken: '',
   // channelKey: 'ynab_contest',
   channelKey:
     'NGDFodNmYwwm3perWJxTZLwpKWuNDcgML5Nxmw0_UWw-5C5i4vKvypzMc2ABMifR',
 });
 
-ynabChannel.handlers.status = function(a, b, c) {
-  console.log(a, b, c);
+// this should check ynab to see if it's available
+ynabChannel.handlers.status = function(request, callback) {
+  fetch('https://api.youneedabudget.com/v1').then((response) {
+    if (response.ok) {
+      callback(null, true);
+    }
+  })
 };
 
 ynabChannel.addExpressRoutes(app);
