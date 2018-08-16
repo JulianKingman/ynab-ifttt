@@ -22,7 +22,7 @@ var ynabChannel = new Ifttt({
 
 // this should check ynab to see if it's available
 ynabChannel.handlers.status = function(request, callback) {
-  fetch('https://api.youneedabudget.com/v1').then((response) {
+  fetch('https://api.youneedabudget.com/v1').then(function (response) {
     if (response.ok) {
       callback(null, true);
     }
