@@ -23,15 +23,18 @@ var ynabChannel = new Ifttt({
 
 // this should check ynab to see if it's available
 ynabChannel.handlers.status = function(request, callback) {
-  fetch('https://api.youneedabudget.com/v1').then(function(response) {
-    if (response.ok) {
-      callback(null, true);
-    }
-  });
+  fetch('https://api.youneedabudget.com/v1')
+    .then(function(response) {
+      if (response.ok) {
+        callback(null, true);
+      } else {
+        callback(null, false);
+      }
+    });
 };
 
 // make sure user can authorize
-ynabChannel.handlers.status = function(request, callback) {
+ynabChannel.handlers.user_info = function(request, callback) {
   var token = request.header('Authorization');
   fetch('https://api.youneedabudget.com/v1/user', {
     headers: { Authorization: token },
