@@ -44,9 +44,9 @@ ynabChannel.handlers.user_info = function(request, callback) {
         return response.json();
       }
     })
-    .then(function(user) {
-      console.log(user);
-      callback(null, { data: { id: user.id, name: 'ynab-contest' } });
+    .then(function(data) {
+      console.log(data);
+      callback(null, { data: { id: data.user.id, name: 'ynab-contest' } });
     });
 };
 
