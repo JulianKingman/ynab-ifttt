@@ -19,6 +19,8 @@ var ynabChannel = new Ifttt({
   channelKey: 'NGDFodNmYwwm3perWJxTZLwpKWuNDcgML5Nxmw0_UWw-5C5i4vKvypzMc2ABMifR',
 });
 
+var response = ynabChannel._handleResponse(err, data);
+
 ynabChannel.addExpressRoutes(app);
 
 app.listen(process.env.PORT || 3000);
