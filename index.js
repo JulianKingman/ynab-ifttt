@@ -16,7 +16,7 @@ var ynabChannel = new Ifttt({
   authMode: 'oauth2',
   // logger: {log: function(){}, warn: function(){}, error: function(){}, info: function(){}},
   testAccessToken:
-    'b824d0964f073530ae57597f2fbe9bc2ce570215e746e2afc2dddd52306d8464s',
+    'b824d0964f073530ae57597f2fbe9bc2ce570215e746e2afc2dddd52306d8464',
   // channelKey: 'ynab_contest',
   channelKey:
     'NGDFodNmYwwm3perWJxTZLwpKWuNDcgML5Nxmw0_UWw-5C5i4vKvypzMc2ABMifR',
@@ -37,7 +37,7 @@ ynabChannel.handlers.status = function(request, callback) {
 ynabChannel.handlers.user_info = function(request, callback) {
   var token = request.header('Authorization');
   fetch('https://api.youneedabudget.com/v1/user', {
-    headers: { Authorization: 'Bearer ' + token },
+    headers: { Authorization: token },
   })
     .then(function(response) {
       console.log('response', response, token);
