@@ -40,7 +40,7 @@ ynabChannel.handlers.user_info = function(request, callback) {
     headers: { Authorization: token },
   })
     .then(function(response) {
-      // console.log('response', response);
+      console.log('response', response, token);
       return response.json();
     })
     .then(function(data) {
