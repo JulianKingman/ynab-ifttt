@@ -14,7 +14,7 @@ var ynabChannel = new Ifttt({
   apiVersion: 'v1',
   authMode: 'oauth2',
   // logger: console,
-  // testAccessToken: '',
+  testAccessToken: '1218ecb3fba21a88d1b5270afa12e825d23a37a3b81920d1bcaaad4341638db8',
   // channelKey: 'ynab_contest',
   channelKey: 'NGDFodNmYwwm3perWJxTZLwpKWuNDcgML5Nxmw0_UWw-5C5i4vKvypzMc2ABMifR',
 });
