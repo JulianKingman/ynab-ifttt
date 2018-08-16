@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var Ifttt = require('ifttt');
+var fetch = require('node-fetch');
 
 app.get('/', function(req, res) {
   res.send('Hello World');

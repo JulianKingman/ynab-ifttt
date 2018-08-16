@@ -27,6 +27,7 @@
   "dependencies": {
     "express": "^4.16.3",
     "ifttt": "^0.1.2",
+    "node-fetch": "^2.2.0",
     "ynab": "^1.2.0"
   }
 }
