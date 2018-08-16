@@ -40,13 +40,22 @@ ynabChannel.handlers.user_info = function(request, callback) {
     headers: { Authorization: token },
   })
     .then(function(response) {
-      if (response.ok) {
-        return response.json();
-      }
+      // console.log('response', response);
+      return response.json();
     })
     .then(function(data) {
-      console.log(data);
-      callback(data.error, { id: data.data.user.id, name: 'ynab-contest' });
+      var errorMessage = data.error
+        ? { message: data.error.name, statusCode: +data.error.id }
+        : null;
+      var dataResponse = {
+        id: data.data && data.data.user && data.data.user.id,
+        name: 'ynab-contest',
+      };
+      console.log('err', errorMessage, dataResponse);
+      callback(errorMessage, dataResponse);
+    })
+    .catch(function(error) {
+      console.log('problem', error);
     });
 };
 
