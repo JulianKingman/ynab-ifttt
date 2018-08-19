@@ -9,45 +9,21 @@ const ScheduledTransactionTrigger = require('./triggers/ScheduledTransactionTrig
 const AccountTriggerField = getField({ type: 'trigger', slug: 'account' });
 const CategoryTriggerField = getField({ type: 'trigger', slug: 'category' });
 const PayeeTriggerField = getField({ type: 'trigger', slug: 'payee' });
-const MinValueTriggerField = getField({
-  type: 'trigger',
-  slug: 'minimum_value',
-});
-const MaxValueTriggerField = getField({
-  type: 'trigger',
-  slug: 'maximum_value',
-});
-const MinOutflowTriggerField = getField({
-  type: 'trigger',
-  slug: 'minimum_outflow',
-});
-const MinInflowTriggerField = getField({
-  type: 'trigger',
-  slug: 'minimum_inflow',
-});
+const MinValueTriggerField = getField({ type: 'trigger', slug: 'minimum_value' });
+const MaxValueTriggerField = getField({ type: 'trigger', slug: 'maximum_value' });
+const MinOutflowTriggerField = getField({ type: 'trigger', slug: 'minimum_outflow' });
+const MinInflowTriggerField = getField({ type: 'trigger', slug: 'minimum_inflow' });
 const FlagColorTriggerField = getField({ type: 'trigger', slug: 'flag_color' });
-const DaysBeforeTriggerField = getField({
-  type: 'trigger',
-  slug: 'days_before',
-});
-const PercentUsedTriggerField = getField({
-  type: 'trigger',
-  slug: 'percent_used',
-});
-const AmountRemainingTriggerField = getField({
-  type: 'trigger',
-  slug: 'amount_remaining',
-});
+const DaysBeforeTriggerField = getField({ type: 'trigger', slug: 'days_before' });
+const PercentUsedTriggerField = getField({ type: 'trigger',slug: 'percent_used' });
+const AmountRemainingTriggerField = getField({type: 'trigger',slug: 'amount_remaining',});
 // Actions
 const AddTransactionAction = require('./actions/AddTransactionAction');
 const UpdateTransactionAction = require('./actions/UpdateTransactionAction');
 const CategoryActionField = getField({ type: 'action', slug: 'category' });
 const PayeeActionField = getField({ type: 'action', slug: 'payee' });
 const AccountActionField = getField({ type: 'action', slug: 'account' });
-const TransactionIDActionField = getField({
-  type: 'action',
-  slug: 'transaction_id',
-});
+const TransactionIDActionField = getField({type: 'action', slug: 'transaction_id' });
 const AmountActionField = getField({ type: 'action', slug: 'amount' });
 const FlagColorActionField = getField({ type: 'action', slug: 'flag_color' });
 const ClearedActionField = getField({ type: 'action', slug: 'cleared' });
