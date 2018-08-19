@@ -1,11 +1,15 @@
-
 ## Triggers
- - [x] Account balance trigger
- - [x] New transaction trigger
+
+- [x] Account balance
+- [x] New transaction
+- [ ] Amount of budget used
+- [ ] Age of Money
+- [ ] Repeating transaction
 
 ## Actions
- - [x] Add Transaction
- - [ ] Update transaction
+
+- [x] Add Transaction
+- [x] Update transaction
 
 ## TODO:
 

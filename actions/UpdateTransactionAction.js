@@ -16,7 +16,6 @@ UpdateTransaction.prototype._getResponseData = async (
   requestPayload,
   cb
 ) => {
-  var results = [];
 
   let updates = {};
   const actionFields = requestPayload.payload.actionFields;

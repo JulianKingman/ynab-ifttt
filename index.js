@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var Ifttt = require('ifttt');
 var fetch = require('node-fetch');
 
-var registerAll = require('./registerAll')
+var registerAll = require('./registerAll');
 var ynabApi = require('./ynabApi');
 var AccountBalanceTrigger = require('./triggers/AccountBalanceTrigger');
 
@@ -23,7 +23,7 @@ var ynabChannel = new Ifttt({
   authMode: 'oauth2',
   // logger: {log: function(){}, warn: function(){}, error: function(){}, info: function(){}},
   testAccessToken:
-    'b824d0964f073530ae57597f2fbe9bc2ce570215e746e2afc2dddd52306d8464',
+    'edb439c89d00c5b1d151224b3f97d7d23a10d886e60f65f6b5d03f3c31c8685d',
   // channelKey: 'ynab_contest',
   channelKey:
     'NGDFodNmYwwm3perWJxTZLwpKWuNDcgML5Nxmw0_UWw-5C5i4vKvypzMc2ABMifR',
