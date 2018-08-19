@@ -6,96 +6,76 @@ var ynab = require('ynab');
 var ynabApi = require('../ynabApi');
 
 // Create example action.
-function AccountBalance() {
-  AccountBalance.super_.call(this, 'account_balance');
+function TransactionAdded() {
+  TransactionAdded.super_.call(this, 'transaction_added');
 }
-util.inherits(AccountBalance, Ifttt.Trigger);
+util.inherits(TransactionAdded, Ifttt.Trigger);
 
 // Overwrite `_getResponseData` with your response handler.
-AccountBalance.prototype._getResponseData = async function(
+TransactionAdded.prototype._getResponseData = async function(
   req,
   requestPayload,
   cb
 ) {
   let results = [];
   const api = ynabApi(req);
-  // TODO: replaces this with dynamic value somehow
+  const toDollars = n => ynab.utils.convertMilliUnitsToCurrencyAmount(n, 2);
+  // TODO: replace this with dynamic value somehow
   const budgetId = 'last-used';
   const accountId = requestPayload.payload.triggerFields.account;
+  const minimumInflow = requestPayload.payload.triggerFields.minimum_inflow;
+  const minimumOutflow = requestPayload.payload.triggerFields.minimum_outflow;
+  const categoryId = requestPayload.payload.triggerFields.category;
+  const payee = requestPayload.payload.triggerFields.payee;
+  const flagColor = requestPayload.payload.triggerFields.flag_color;
 
-  let account = await api.accounts
-    .getAccountById(budgetId, accountId)
-    .catch(function(err) {
-      console.warn(err);
-      cb(err, results);
-    });
-  account = account.data.account;
-  console.log(account);
-
-  let transactions = await api.transactions.getTransactionsByAccount(
+  // last 15 days of data
+  let transactions = await api.transactions.getTransactions(
     budgetId,
-    account.id,
-    new Date(new Date() - 30 * 24 * 60 * 60 * 1000).toISOString()
+    new Date(new Date() - 15 * 24 * 60 * 60 * 1000).toISOString()
   );
-  transactions = transactions.data.transactions.sort(
-    (t1, t2) => (t1.date > t2.date ? -1 : t1.date < t2.date ? 1 : 0)
-  );
-  // .filter(t => t.cleared === 'cleared');
+  transactions = transactions.data.transactions
+    .sort((t1, t2) => (t1.date > t2.date ? -1 : t1.date < t2.date ? 1 : 0))
+    .filter(t => (
+      minimumInflow >= 0
+        ? toDollars(t.amount) >= minimumInflow
+        : true
+      && minimumInflow === -1
+        ? t.amount < 0
+        : true
+      && minimumOutflow >= 0
+        ? toDollars(t.amount) <= -minimumOutflow
+        : true
+      && minimumOutflow === -1
+        ? t.amount > 0
+        : true
+      && accountId
+        ? t.account_id === accountId
+        : true
+      && categoryId
+        ? t.category_id === categoryId
+        : true
+      && payee
+        ? t.payee_id === categoryId
+        : true
+      && flagColor
+        ? t.flag_color === flagColor : true
+    ));
 
-  const minBalance = requestPayload.payload.triggerFields.minimum_balance;
-  const maxBalance = requestPayload.payload.triggerFields.maximum_balance;
-  const toDollars = n => ynab.utils.convertMilliUnitsToCurrencyAmount(n, 2);
-  const accountBalance = toDollars(account.cleared_balance);
-
-  let transactionSummaryByDay = transactions.reduce(
-    (array, transaction, index) => {
-      const currentDayIndex = array.findIndex(
-        t => t.created_at === transaction.date
-      );
-      if (currentDayIndex < 0) {
-        const yesterday = array[array.length - 1];
-        const runningBalance = yesterday
-          ? yesterday.account_balance
-          : accountBalance;
-        console.log(yesterday && yesterday.account_balance);
-        return [
-          ...array,
-          {
-            account_balance: runningBalance - toDollars(+transaction.amount),
-            account_name: account.name,
-            minimum_balance: minBalance,
-            maximum_balance: maxBalance,
-            created_at: transaction.date,
-            meta: {
-              id: `day-${transaction.date}`,
-              timestamp: Date.now(),
-            },
-          },
-        ];
-      } else {
-        array[currentDayIndex].account_balance -= toDollars(
-          +transaction.amount
-        );
-      }
-      return array;
+  transactions = transactions.map(transaction => ({
+    amount: toDollars(transaction.amount),
+    account: transaction.account_name,
+    payee: transaction.payee_name,
+    category: transaction.category_name,
+    created_at: transaction.date,
+    transaction_id: transaction.id,
+    meta: {
+      id: `day-${transaction.date}`,
+      timestamp: Date.now(),
     },
-    []
-  );
-  transactionSummaryByDay = transactionSummaryByDay.filter(summary => {
-    const belowMin = minBalance && summary.account_balance <= minBalance;
-    const aboveMax = maxBalance && summary.account_balance >= maxBalance;
-    console.log(
-      minBalance,
-      maxBalance,
-      summary.account_balance,
-      belowMin,
-      aboveMax
-    );
-    return belowMin || aboveMax;
-  });
-  console.log(transactionSummaryByDay);
+  }))
 
-  cb(null, transactionSummaryByDay);
+  cb(null, transactions);
 };
 
-module.exports = AccountBalance;
+module.exports = TransactionAdded;

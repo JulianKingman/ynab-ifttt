@@ -5,25 +5,25 @@ var util = require('util');
 var ynabApi = require('../ynabApi');
 
 // Create example field.
-function AccountField() {
-  AccountField.super_.call(this, 'account');
+function CategoryField() {
+  CategoryField.super_.call(this, 'category');
 
   this.fieldRequired = false;
   // Set sample data so IFTTT can properly test this field. For validation purposes.
   this.setOptionsSampleData('valid_option_value', 'invalid_option_value');
 }
-util.inherits(AccountField, Ifttt.Trigger.TriggerField);
+util.inherits(CategoryField, Ifttt.Trigger.TriggerField);
 
 // Overwrite `_getOptionsData` to return field options.
-AccountField.prototype._getOptionsData = function(req, response, cb) {
+CategoryField.prototype._getOptionsData = function(req, response, cb) {
   var api = ynabApi(req);
 
-  api.accounts.getAccounts('last-used').then(function(data) {
+  api.categories.getCategories('last-used').then(data => {
     var option = new response.OptionEntity();
-    var accounts = data.data.accounts;
-    accounts.forEach(function(account) {
-      option.setLabel(account.name);
-      option.setValue(account.id);
+    var categories = data.data.categories;
+    categories.forEach(category => {
+      option.setLabel(category.name);
+      option.setValue(category.id);
     });
     response.addOption(option);
     cb(null);
@@ -31,7 +31,12 @@ AccountField.prototype._getOptionsData = function(req, response, cb) {
 };
 
 // Overwrite `_getValidateData` to check if value is valid.
-AccountField.prototype._getValidateData = function(req, response, payload, cb) {
+CategoryField.prototype._getValidateData = function(
+  req,
+  response,
+  payload,
+  cb
+) {
   var value = payload.getValue();
 
   if (value === 'valid_option_value') {
@@ -43,4 +48,4 @@ AccountField.prototype._getValidateData = function(req, response, payload, cb) {
   }
 };
 
-module.exports = AccountField;
+module.exports = CategoryField;

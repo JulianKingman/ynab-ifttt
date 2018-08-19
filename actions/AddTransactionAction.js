@@ -3,13 +3,13 @@ var Ifttt = require('ifttt');
 var util = require('util');
 
 // Create example trigger.
-function ExampleTrigger() {
-  ExampleTrigger.super_.call(this, 'example');
+function AddTransaction() {
+  AddTransaction.super_.call(this, 'add_transaction');
 }
-util.inherits(ExampleTrigger, Ifttt.Trigger);
+util.inherits(AddTransaction, Ifttt.Action);
 
 // Overwrite `_getResponseData` with your response handler.
-ExampleTrigger.prototype._getResponseData = function(req, requestPayload, cb){
+AddTransaction.prototype._getResponseData = function(req, requestPayload, cb) {
   var results = [];
 
   results.push({
@@ -17,11 +17,11 @@ ExampleTrigger.prototype._getResponseData = function(req, requestPayload, cb){
     created_at: new Date().toISOString(),
     meta: {
       id: 'id1',
-      timestamp: new Date.now()
-    }
+      timestamp: new Date.now(),
+    },
   });
 
   return cb(null, results);
 };
 
-module.exports = ExampleTrigger;
+module.exports = AddTransaction;
