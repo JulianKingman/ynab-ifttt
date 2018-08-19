@@ -63,8 +63,8 @@ AccountBalance.prototype._getResponseData = async function(
           {
             account_balance: runningBalance - toDollars(+transaction.amount),
             account_name: account.name,
-            minimum_balance: minBalance,
-            maximum_balance: maxBalance,
+            minimum_value: minBalance,
+            maximum_value: maxBalance,
             created_at: transaction.date,
             meta: {
               id: `day-${transaction.date}`,
