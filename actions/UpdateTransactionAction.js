@@ -18,31 +18,23 @@ UpdateTransaction.prototype._getResponseData = async (
 ) => {
   var results = [];
 
-  const amount = requestPayload.payload.actionFields.amount || null;
-  const category = requestPayload.payload.actionFields.category || null;
-  const account = requestPayload.payload.actionFields.account || null;
-  const payee = requestPayload.payload.actionFields.payee || null;
-  const flagColor = requestPayload.payload.actionFields.flag_color || null;
-  const cleared = requestPayload.payload.actionFields.cleared || null;
-  const transactionId =
-    requestPayload.payload.actionFields.transaction_id || null;
+  let updates = {};
+  const actionFields = requestPayload.payload.actionFields;
+
+  if (actionFields.amount) updates.amount = actionFields.amount * 1000;
+  if (actionFields.category) updates.category = actionFields.category;
+  if (actionFields.account) updates.account = actionFields.account;
+  if (actionFields.payee) updates.payee = actionFields.payee;
+  if (actionFields.flag_color) updates.flagColor = actionFields.flag_color;
+  if (actionFields.cleared) updates.cleared = actionFields.cleared;
+  if (actionFields.memo) updates.transactionId = actionFields.memo;
+  const transactionId = actionFields.transaction_id;
 
   const api = ynabApi(req);
 
   const transaction = await api.transactions
     .updateTransaction('last-used', transactionId, {
-      transaction: {
-        account_id: account,
-        category_id: category,
-        payee_id: payee,
-        flag_color: flagColor,
-        cleared: cleared,
-        date: new Date().toISOString(),
-        // convert to milliunits
-        amount: -amount * 1000,
-        approved: false,
-        memo: 'asdf',
-      },
+      transaction: updates,
     })
     .catch(err => console.log(err));
 
