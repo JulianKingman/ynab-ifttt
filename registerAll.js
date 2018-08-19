@@ -103,10 +103,10 @@ function registerAll(ynabApi) {
   updateTransactionAction.registerField(new CategoryActionField());
   updateTransactionAction.registerField(new PayeeActionField());
   updateTransactionAction.registerField(new AccountActionField());
-  addTransactionAction.registerField(new TransactionIDActionField());
-  addTransactionAction.registerField(new AmountActionField());
-  addTransactionAction.registerField(new FlagColorActionField());
-  addTransactionAction.registerField(new ClearedActionField());
+  updateTransactionAction.registerField(new TransactionIDActionField());
+  updateTransactionAction.registerField(new AmountActionField());
+  updateTransactionAction.registerField(new FlagColorActionField());
+  updateTransactionAction.registerField(new ClearedActionField());
   ynabApi.registerAction(updateTransactionAction);
 }
 
