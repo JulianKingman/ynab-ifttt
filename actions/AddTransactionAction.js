@@ -41,8 +41,6 @@ AddTransaction.prototype._getResponseData = async (req, requestPayload, cb) => {
     })
     .catch(err => console.log(err));
 
-  console.log(transaction);
-
   return cb(null, [transaction]);
 };
 

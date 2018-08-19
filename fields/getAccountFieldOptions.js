@@ -16,7 +16,6 @@ const getAccountFieldOptions = (_getOptionsData = function(req, response, cb) {
       option.setValue(account.id);
       response.addOption(option);
     });
-    console.log(option);
     cb(null);
   });
 });
