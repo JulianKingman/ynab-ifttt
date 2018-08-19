@@ -4,19 +4,16 @@ const getCategoryFieldOptions = async (req, response, cb) => {
   var api = ynabApi(req);
   let categoryGroups = await api.categories.getCategories('last-used');
   categoryGroups = categoryGroups.data.category_groups;
-  const categories = categoryGroups.map(group => ({
-    label: group.name,
-    values: group.categories.map(category => ({
-      name: category.name,
-      value: category.id,
-    })),
-  }));
-  console.log('categories', categories);
-  categories.forEach(category => {
-    const option = new response.OptionEntity();
-    option.setLabel(category.label);
-    option.setValue(category.values);
-    response.addOption(option);
+  categoryGroups.forEach(group => {
+    if (group.categories) {
+      group.categories.forEach(category => {
+        // console.log(category.id, `${group.name}/${category.name}`);
+        const option = new response.OptionEntity();
+        option.setLabel(`${group.name}/${category.name}`);
+        option.setValue(category.id);
+        response.addOption(option);
+      });
+    }
   });
   cb(null);
 };
