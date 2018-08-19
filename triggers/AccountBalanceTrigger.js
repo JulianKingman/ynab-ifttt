@@ -8,26 +8,35 @@ var ynabApi = require('../ynabApi');
 function AccountBalance() {
   AccountBalance.super_.call(this, 'account_balance');
 }
-util.inherits(AccountBalance, Ifttt.Action);
+util.inherits(AccountBalance, Ifttt.Trigger);
 
 // Overwrite `_getResponseData` with your response handler.
 AccountBalance.prototype._getResponseData = function(req, requestPayload, cb) {
   var results = [];
 
   // if no budget exists, use last-used
-  var budgetId = requestPayload.payload.actionFields.budget || 'last-used';
-  console.log('using budgetId:', budgetId, req.header('Authorization'));
+  var budgetId = 'last-used';
+  var accountId = requestPayload.payload.triggerFields.account;
+  var minBalance = requestPayload.payload.triggerFields.minimum_balance;
+  var maxBalance = requestPayload.payload.triggerFields.maximum_balance;
+  console.log('account_balance', budgetId, accountId, minBalance, maxBalance);
 
   ynabApi(req)
     .accounts.getAccountById(budgetId, accountId)
     .then(function(data) {
-      var accounts = data.data.accounts;
-      console.log(accounts);
-      accounts.forEach(function(account) {
-        results.push({
-          label: account.name,
-          value: account.id,
-        });
+      var account = data.data.account;
+      console.log(account);
+      // if (account.balance >=)
+      results.push({
+        account_balance: account.balance,
+        account_name: account.balance,
+        minimum_balance: minBalance,
+        maximum_balance: maxBalance,
+        created_at: new Date().toISOString(),
+        meta: {
+          id: 'id1',
+          timestamp: Date.now(),
+        },
       });
       cb(null, results);
     })
