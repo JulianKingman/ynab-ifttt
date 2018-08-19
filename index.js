@@ -1,15 +1,22 @@
 var express = require('express');
-var app = express();
+var bodyParser = require('body-parser');
 var Ifttt = require('ifttt');
 var fetch = require('node-fetch');
 
-app.get('/', function(req, res) {
-  res.send('Hello World');
-});
+var registerAll = require('./registerAll')
+var ynabApi = require('./ynabApi');
+var AccountBalanceTrigger = require('./triggers/AccountBalanceTrigger');
 
-app.post('/oauth2/token', function(req, res) {
-  res.send('Hello World');
-});
+var app = express();
+app.use(bodyParser.json());
+
+// app.get('/', function(req, res) {
+//   res.send('Hello World');
+// });
+
+// app.post('/oauth2/token', function(req, res) {
+//   res.send('Hello World');
+// });
 
 var ynabChannel = new Ifttt({
   apiVersion: 'v1',
@@ -35,13 +42,13 @@ ynabChannel.handlers.status = function(request, callback) {
 
 // make sure user can authorize
 ynabChannel.handlers.user_info = function(request, callback) {
-  var token = request.header('Authorization');
-  fetch('https://api.youneedabudget.com/v1/user', {
-    headers: { Authorization: token },
-  })
-    .then(function(response) {
-      console.log('response', response, token);
-      return response.json();
+  // console.log(Object.keys(ynabApi(request).user));
+  // return;
+  ynabApi(request)
+    .user.getUser()
+    .then(function(user) {
+      // console.log(user);
+      return user;
     })
     .then(function(data) {
       var errorMessage = data.error
@@ -55,13 +62,16 @@ ynabChannel.handlers.user_info = function(request, callback) {
       callback(errorMessage, dataResponse);
     })
     .catch(function(error) {
-      console.log('problem', error);
+      console.log('problem', error, request);
     });
 };
 
-// ynabChannel.oauth2middleware = function (req, res, cb) {}
+registerAll(ynabChannel);
 
 ynabChannel.addExpressRoutes(app);
+
+// ynabChannel.oauth2middleware = function (req, res, cb) {}
+
 var port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log('listening on port ', port));

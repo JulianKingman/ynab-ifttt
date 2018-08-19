@@ -25,6 +25,7 @@
   "author": "Julian Kingman",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "ifttt": "^0.1.2",
     "node-fetch": "^2.2.0",
