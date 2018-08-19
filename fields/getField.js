@@ -18,6 +18,7 @@ const optionMap = {
   minimum_outflow: { getData: undefined, validSample: 0 , invalidSample: 'invalid_value'},
   maximum_value: { getData: undefined, validSample: 2000 , invalidSample: 'invalid_value'},
   minimum_value: { getData: undefined, validSample: 0 , invalidSample: 'invalid_value'},
+  cleared: { getData: undefined, validSample: 'cleared', invalidSample: 'invalid_value'},
 };
 
 const getField = ({ type, slug }) => {
@@ -26,7 +27,7 @@ const getField = ({ type, slug }) => {
 
     this.fieldRequired = false;
     // Set sample data so IFTTT can properly test this field. For validation purposes.
-    this.setOptionsSampleData(optionMap[slug].sampleData);
+    this.setOptionsSampleData(optionMap[slug].validSample, optionMap[slug].invalidSample);
   }
   util.inherits(
     Field,
