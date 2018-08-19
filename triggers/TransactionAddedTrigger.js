@@ -58,7 +58,7 @@ TransactionAdded.prototype._getResponseData = async function(
       && payee
         ? t.payee_id === categoryId
         : true
-      && flagColor
+      && flagColor !== 'none'
         ? t.flag_color === flagColor : true
     ));
 
