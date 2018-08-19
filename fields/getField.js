@@ -3,23 +3,23 @@ var util = require('util');
 const getAccountFieldOptions = require('./getAccountFieldOptions');
 const getPayeeFieldOptions = require('./getPayeeFieldOptions');
 const getCategoryFieldOptions = require('./getCategoryFieldOptions');
+const getDummyFieldOptions = require('./getDummyFieldOptions')
 
-const dummyFetcher = (req, resp, cb) => cb([{id: 1}, {id: 2}, {id: 3}])
 const optionMap = {
   category: { getData: getCategoryFieldOptions, validSample: 'none' , invalidSample: 'invalid_value'},
   account: { getData: getAccountFieldOptions, validSample: 'none' , invalidSample: 'invalid_value'},
   payee: { getData: getPayeeFieldOptions, validSample: 'none' , invalidSample: 'invalid_value'},
-  amount: { getData: dummyFetcher, validSample: 0 , invalidSample: 'invalid_value'},
-  transaction_id: { getData: dummyFetcher, validSample: 'asdf' , invalidSample: 'invalid_value'},
-  flag_color: { getData: dummyFetcher, validSample: 'none' , invalidSample: 'invalid_value'},
-  amount_remaining: { getData: dummyFetcher, validSample: 20 , invalidSample: 'invalid_value'},
-  percent_used: { getData: dummyFetcher, validSample: 50 , invalidSample: 'invalid_value'},
-  days_before: { getData: dummyFetcher, validSample: 3 , invalidSample: 'invalid_value'},
-  minimum_inflow: { getData: dummyFetcher, validSample: 0 , invalidSample: 'invalid_value'},
-  minimum_outflow: { getData: dummyFetcher, validSample: 0 , invalidSample: 'invalid_value'},
-  maximum_value: { getData: dummyFetcher, validSample: 2000 , invalidSample: 'invalid_value'},
-  minimum_value: { getData: dummyFetcher, validSample: 0 , invalidSample: 'invalid_value'},
-  cleared: { getData: dummyFetcher, validSample: 'cleared', invalidSample: 'invalid_value'},
+  amount: { getData: getDummyFieldOptions, validSample: 0 , invalidSample: 'invalid_value'},
+  transaction_id: { getData: getDummyFieldOptions, validSample: 'asdf' , invalidSample: 'invalid_value'},
+  flag_color: { getData: getDummyFieldOptions, validSample: 'none' , invalidSample: 'invalid_value'},
+  amount_remaining: { getData: getDummyFieldOptions, validSample: 20 , invalidSample: 'invalid_value'},
+  percent_used: { getData: getDummyFieldOptions, validSample: 50 , invalidSample: 'invalid_value'},
+  days_before: { getData: getDummyFieldOptions, validSample: 3 , invalidSample: 'invalid_value'},
+  minimum_inflow: { getData: getDummyFieldOptions, validSample: 0 , invalidSample: 'invalid_value'},
+  minimum_outflow: { getData: getDummyFieldOptions, validSample: 0 , invalidSample: 'invalid_value'},
+  maximum_value: { getData: getDummyFieldOptions, validSample: 2000 , invalidSample: 'invalid_value'},
+  minimum_value: { getData: getDummyFieldOptions, validSample: 0 , invalidSample: 'invalid_value'},
+  cleared: { getData: getDummyFieldOptions, validSample: 'cleared', invalidSample: 'invalid_value'},
 };
 
 const getField = ({ type, slug }) => {
