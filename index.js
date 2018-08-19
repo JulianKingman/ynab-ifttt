@@ -44,8 +44,11 @@ ynabChannel.handlers.status = function(request, callback) {
 ynabChannel.handlers.user_info = function(request, callback) {
   // console.log(Object.keys(ynabApi(request).user));
   // return;
-  ynabApi(request)
-    .user.getUser()
+  fetch('https://api.youneedabudget.com/v1/user', {
+    headers: {
+      Authorization: request.header('Authorization'),
+    },
+  })
     .then(function(user) {
       // console.log(user);
       return user;
