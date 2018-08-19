@@ -44,6 +44,13 @@ const UpdateTransactionAction = require('./actions/UpdateTransactionAction');
 const CategoryActionField = getField({ type: 'action', slug: 'category' });
 const PayeeActionField = getField({ type: 'action', slug: 'payee' });
 const AccountActionField = getField({ type: 'action', slug: 'account' });
+const TransactionIDActionField = getField({
+  type: 'action',
+  slug: 'transaction_id',
+});
+const AmountActionField = getField({ type: 'action', slug: 'amount' });
+const FlagColorActionField = getField({ type: 'action', slug: 'flag_color' });
+const ClearedActionField = getField({ type: 'action', slug: 'cleared' });
 
 function registerAll(ynabApi) {
   // Register AccountBalanceTrigger
@@ -86,6 +93,9 @@ function registerAll(ynabApi) {
   addTransactionAction.registerField(new CategoryActionField());
   addTransactionAction.registerField(new PayeeActionField());
   addTransactionAction.registerField(new AccountActionField());
+  addTransactionAction.registerField(new AmountActionField());
+  addTransactionAction.registerField(new FlagColorActionField());
+  addTransactionAction.registerField(new ClearedActionField());
   ynabApi.registerAction(addTransactionAction);
 
   // Register Update Transaction action
@@ -93,6 +103,10 @@ function registerAll(ynabApi) {
   updateTransactionAction.registerField(new CategoryActionField());
   updateTransactionAction.registerField(new PayeeActionField());
   updateTransactionAction.registerField(new AccountActionField());
+  addTransactionAction.registerField(new TransactionIDActionField());
+  addTransactionAction.registerField(new AmountActionField());
+  addTransactionAction.registerField(new FlagColorActionField());
+  addTransactionAction.registerField(new ClearedActionField());
   ynabApi.registerAction(updateTransactionAction);
 }
 
