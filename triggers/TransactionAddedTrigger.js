@@ -49,13 +49,13 @@ TransactionAdded.prototype._getResponseData = async function(
       && minimumOutflow === -1
         ? t.amount > 0
         : true
-      && accountId
+      && accountId !== 'none'
         ? t.account_id === accountId
         : true
-      && categoryId
+      && categoryId !== 'none'
         ? t.category_id === categoryId
         : true
-      && payee
+      && payee !== 'none'
         ? t.payee_id === categoryId
         : true
       && flagColor !== 'none'
