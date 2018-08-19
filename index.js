@@ -41,32 +41,27 @@ ynabChannel.handlers.status = function(request, callback) {
 };
 
 // make sure user can authorize
-ynabChannel.handlers.user_info = function(request, callback) {
+ynabChannel.handlers.user_info = async (request, callback) => {
   // console.log(Object.keys(ynabApi(request).user));
   // return;
-  fetch('https://api.youneedabudget.com/v1/user', {
+  let data = await fetch('https://api.youneedabudget.com/v1/user', {
     headers: {
       Authorization: request.header('Authorization'),
     },
-  })
-    .then(function(user) {
-      // console.log(user);
-      return user;
-    })
-    .then(function(data) {
-      var errorMessage = data.error
-        ? { message: data.error.name, statusCode: +data.error.id }
-        : null;
-      var dataResponse = {
-        id: data.data && data.data.user && data.data.user.id,
-        name: 'ynab-contest',
-      };
-      console.log('err', errorMessage, dataResponse);
-      callback(errorMessage, dataResponse);
-    })
-    .catch(function(error) {
-      console.log('problem', error, request);
-    });
+  }).catch(function(error) {
+    console.log('problem', error, request);
+  });
+  data = await data.json();
+  console.log(data);
+  var errorMessage = data.error
+    ? { message: data.error.name, statusCode: +data.error.id }
+    : null;
+  var dataResponse = {
+    id: data.data && data.data.user && data.data.user.id,
+    name: 'ynab-contest',
+  };
+  console.log('err', errorMessage, dataResponse);
+  callback(errorMessage, dataResponse);
 };
 
 registerAll(ynabChannel);
