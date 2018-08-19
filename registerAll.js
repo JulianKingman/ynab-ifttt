@@ -1,8 +1,16 @@
+const getField = require('./fields/getField');
+// Triggers
 const AccountBalanceTrigger = require('./triggers/AccountBalanceTrigger');
 const TransactionAddedTrigger = require('./triggers/TransactionAddedTrigger');
-const AccountTriggerField = require('./triggerFields/AccountTriggerField');
-const CategoryTriggerField = require('./triggerFields/CategoryTriggerField');
-const PayeeTriggerField = require('./triggerFields/PayeeTriggerField');
+
+const AccountTriggerField = getField({ type: 'trigger', slug: 'account' });
+const CategoryTriggerField = getField({ type: 'trigger', slug: 'category' });
+const PayeeTriggerField = getField({ type: 'trigger', slug: 'payee' });
+// Actions
+const AddTransactionAction = require('./actions/AddTransactionAction');
+const CategoryActionField = getField({ type: 'action', slug: 'category' });
+const PayeeActionField = getField({ type: 'action', slug: 'payee' });
+const AccountActionField = getField({ type: 'action', slug: 'account' });
 
 function registerAll(ynabApi) {
   // Register AccountBalanceTrigger
@@ -16,6 +24,13 @@ function registerAll(ynabApi) {
   transactionAddedTrigger.registerField(new PayeeTriggerField());
   transactionAddedTrigger.registerField(new AccountTriggerField());
   ynabApi.registerTrigger(transactionAddedTrigger);
+
+  // Register Add Transaction action
+  const addTransactionAction = new AddTransactionAction();
+  addTransactionAction.registerField(new CategoryActionField());
+  addTransactionAction.registerField(new PayeeActionField());
+  addTransactionAction.registerField(new AccountActionField());
+  ynabApi.registerAction(addTransactionAction);
 }
 
 module.exports = registerAll;
