@@ -57,7 +57,7 @@ AccountBalance.prototype._getResponseData = async function(
         const runningBalance = yesterday
           ? yesterday.account_balance
           : accountBalance;
-        console.log(yesterday && yesterday.account_balance);
+        // console.log(yesterday && yesterday.account_balance);
         return [
           ...array,
           {
@@ -84,16 +84,16 @@ AccountBalance.prototype._getResponseData = async function(
   transactionSummaryByDay = transactionSummaryByDay.filter(summary => {
     const belowMin = minBalance && summary.account_balance <= minBalance;
     const aboveMax = maxBalance && summary.account_balance >= maxBalance;
-    console.log(
-      minBalance,
-      maxBalance,
-      summary.account_balance,
-      belowMin,
-      aboveMax
-    );
+    // console.log(
+    //   minBalance,
+    //   maxBalance,
+    //   summary.account_balance,
+    //   belowMin,
+    //   aboveMax
+    // );
     return belowMin || aboveMax;
   });
-  console.log(transactionSummaryByDay);
+  console.log(`${transactionSummaryByDay.length} transactions sent`);
 
   cb(null, transactionSummaryByDay);
 };
