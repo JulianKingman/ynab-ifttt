@@ -75,6 +75,8 @@ TransactionAdded.prototype._getResponseData = async function(
     },
   }))
 
+  console.log(`Retrieved ${transactions.length} transactions`)
+
   cb(null, transactions);
 };
 
