@@ -9,8 +9,8 @@ const getCategoryFieldOptions = async (req, response, cb) => {
   categories.forEach(category => {
     option.setLabel(category.name);
     option.setValue(category.id);
+    response.addOption(option);
   });
-  response.addOption(option);
   cb(null);
 };
 

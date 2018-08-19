@@ -11,8 +11,8 @@ const getPayeeFieldOptions = async (req, response, cb) => {
   payees.forEach(payee => {
     option.setLabel(payee.name);
     option.setValue(payee.id);
+    response.addOption(option);
   });
-  response.addOption(option);
   cb(null);
 };
 

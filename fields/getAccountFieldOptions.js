@@ -10,11 +10,13 @@ const getAccountFieldOptions = (_getOptionsData = function(req, response, cb) {
   api.accounts.getAccounts('last-used').then(function(data) {
     var option = new response.OptionEntity();
     var accounts = data.data.accounts;
-    accounts.forEach(function(account) {
+    accounts.forEach(account => {
+      console.log('account', account);
       option.setLabel(account.name);
       option.setValue(account.id);
+      response.addOption(option);
     });
-    response.addOption(option);
+    console.log(option);
     cb(null);
   });
 });
