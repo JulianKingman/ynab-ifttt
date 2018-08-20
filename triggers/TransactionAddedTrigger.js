@@ -37,16 +37,16 @@ TransactionAdded.prototype._getResponseData = async function(
   transactions = transactions.data.transactions
     .sort((t1, t2) => (t1.date > t2.date ? -1 : t1.date < t2.date ? 1 : 0))
     .filter(t => (
-      minimumInflow >= 0
+      minimumInflow && >= 0
         ? toDollars(t.amount) >= minimumInflow
         : true
-      && minimumInflow === -1
+      && minimumInflow && === -1
         ? t.amount < 0
         : true
-      && minimumOutflow >= 0
+      && minimumOutflow && >= 0
         ? toDollars(t.amount) <= -minimumOutflow
         : true
-      && minimumOutflow === -1
+      && minimumOutflow && === -1
         ? t.amount > 0
         : true
       && accountId !== 'none'
