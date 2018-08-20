@@ -4,6 +4,10 @@ This is a Node.js shim server that stands in between YNAB and IFTTT, allowing ea
 
 In order to go live as a public service, the tests need to be fleshed out, as I frankly ignored most of that part of the IFTTT documentation.
 
+### Note on reliability
+
+I have seen this fail a couple times due to timeouts. Some queries to YNAB take upwards of 6s, possibly longer; I'm not sure that IFTTT waits that long. Also Heroku goes to sleep when not in use, so for best performance, wake it up before using it.
+
 ## Helpful links
 
 Video demo: https://www.youtube.com/watch?v=x3Z9DQ2_tno
