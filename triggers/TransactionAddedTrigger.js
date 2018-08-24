@@ -28,10 +28,11 @@ TransactionAdded.prototype._getResponseData = async function(
   const categoryId = requestPayload.payload.triggerFields.category;
   const payee = requestPayload.payload.triggerFields.payee;
   const flagColor = requestPayload.payload.triggerFields.flag_color;
+  const appletId = requestPayload.payload.ifttt_source.id;
 
   console.log(`transaction added with 
   ${accountId}, ${minimumInflow}, ${minimumOutflow},
-   ${categoryId}, ${payee}, ${flagColor}`);
+   ${categoryId}, ${payee}, ${flagColor}`, requestPayload);
   // last 15 days of data
   let transactions = await api.transactions.getTransactions(
     budgetId,
@@ -68,7 +69,7 @@ TransactionAdded.prototype._getResponseData = async function(
     created_at: transaction.date,
     transaction_id: transaction.id,
     meta: {
-      id: `day-${transaction.date}`,
+      id: `transactionId-${transaction.id}-appletId-${appletId}`,
       timestamp: Date.now(),
     },
   }));
