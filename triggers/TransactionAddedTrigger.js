@@ -30,7 +30,7 @@ TransactionAdded.prototype._getResponseData = async function(
   const flagColor = requestPayload.payload.triggerFields.flag_color;
 
   console.log(`transaction added with 
-  ${accountId}, ${minimumInlow}, ${minimumOutflow},
+  ${accountId}, ${minimumInflow}, ${minimumOutflow},
    ${categoryId}, ${payee}, ${flagColor}`);
   // last 15 days of data
   let transactions = await api.transactions.getTransactions(
