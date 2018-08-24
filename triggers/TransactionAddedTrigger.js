@@ -29,6 +29,9 @@ TransactionAdded.prototype._getResponseData = async function(
   const payee = requestPayload.payload.triggerFields.payee;
   const flagColor = requestPayload.payload.triggerFields.flag_color;
 
+  console.log(`transaction added with 
+  ${accountId}, ${minimumInlow}, ${minimumOutflow},
+   ${categoryId}, ${payee}, ${flagColor}`);
   // last 15 days of data
   let transactions = await api.transactions.getTransactions(
     budgetId,
@@ -36,31 +39,26 @@ TransactionAdded.prototype._getResponseData = async function(
   );
   transactions = transactions.data.transactions
     .sort((t1, t2) => (t1.date > t2.date ? -1 : t1.date < t2.date ? 1 : 0))
-    .filter(t => (
-      (minimumInflow && minimumInflow >= 0)
-        ? toDollars(t.amount) >= minimumInflow
-        : true
-      && (minimumInflow && minimumInflow === -1)
-        ? t.amount < 0
-        : true
-      && (minimumOutflow && minimumOutflow >= 0)
-        ? toDollars(t.amount) <= -minimumOutflow
-        : true
-      && (minimumOutflow && minimumOutflow === -1)
-        ? t.amount > 0
-        : true
-      && accountId !== 'none'
-        ? t.account_id === accountId
-        : true
-      && categoryId !== 'none'
-        ? t.category_id === categoryId
-        : true
-      && payee !== 'none'
-        ? t.payee_id === categoryId
-        : true
-      && flagColor !== 'none'
-        ? t.flag_color === flagColor : true
-    ));
+    .filter(
+      t =>
+        minimumInflow && minimumInflow >= 0
+          ? toDollars(t.amount) >= minimumInflow
+          : true && (minimumInflow && minimumInflow === -1)
+            ? t.amount < 0
+            : true && (minimumOutflow && minimumOutflow >= 0)
+              ? toDollars(t.amount) <= -minimumOutflow
+              : true && (minimumOutflow && minimumOutflow === -1)
+                ? t.amount > 0
+                : true && accountId !== 'none'
+                  ? t.account_id === accountId
+                  : true && categoryId !== 'none'
+                    ? t.category_id === categoryId
+                    : true && payee !== 'none'
+                      ? t.payee_id === categoryId
+                      : true && flagColor !== 'none'
+                        ? t.flag_color === flagColor
+                        : true
+    );
 
   transactions = transactions.map(transaction => ({
     amount: toDollars(transaction.amount),
@@ -73,9 +71,9 @@ TransactionAdded.prototype._getResponseData = async function(
       id: `day-${transaction.date}`,
       timestamp: Date.now(),
     },
-  }))
+  }));
 
-  console.log(`Retrieved ${transactions.length} transactions`)
+  console.log(`Retrieved ${transactions.length} transactions`);
 
   cb(null, transactions);
 };

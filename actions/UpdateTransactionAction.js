@@ -16,7 +16,6 @@ UpdateTransaction.prototype._getResponseData = async (
   requestPayload,
   cb
 ) => {
-
   let updates = {};
   const actionFields = requestPayload.payload.actionFields;
 
@@ -28,6 +27,7 @@ UpdateTransaction.prototype._getResponseData = async (
   if (actionFields.cleared) updates.cleared = actionFields.cleared;
   if (actionFields.memo) updates.transactionId = actionFields.memo;
   const transactionId = actionFields.transaction_id;
+  console.log(`updatetransaction action triggered with ${actionFields}`);
 
   const api = ynabApi(req);
 
